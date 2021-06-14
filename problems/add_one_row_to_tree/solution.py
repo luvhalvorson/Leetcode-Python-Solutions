@@ -5,43 +5,44 @@
 #         self.left = left
 #         self.right = right
 class Solution:
-    def addOneRow(self, root: TreeNode, v: int, d: int) -> TreeNode:
-        q = [root]
+    def addOneRow(self, root: TreeNode, val: int, depth: int) -> TreeNode:
         
-        curdep = 1
-        if d == 1:
-            return TreeNode(val=v, left=root)
-            
+        curdepth = 1
+        if not root:
+            return TreeNode(val)
+        if depth == 1:
+            nh = TreeNode(val)
+            nh.left = root
+            return nh 
+        q = [root]
         while q:
-            # q is a list for current level
-            temp = []
-            while q:
-                cur = q.pop(0)
-                # get a node from last level and iterate its children
-                if curdep == (d-1):
-                    if cur.left:
-                        tnode = cur.left
-                        cur.left = TreeNode(val=v, left=tnode)
-                    else:
-                        cur.left = TreeNode(val=v)
-                        
-                    if cur.right:
-                        tnode = cur.right
-                        cur.right = TreeNode(val=v, right=tnode)
-                    else:
-                        cur.right = TreeNode(val=v)
-                else:
-                    
-                    if cur.left:
-                        temp.append(cur.left) 
-                    if cur.right:
-                        temp.append(cur.right)
-                    
-            if not temp:
-                print("b")
+            if curdepth == (depth-1):
                 break
-            q = temp
-            curdep += 1
-
-            #print( ([n.val for n in temp], curdep) if temp else "No") 
+                
+            for _ in range(len(q), 0, -1):
+                
+                curnode = q.pop(0)
+                
+                if curnode.left:
+                    q.append(curnode.left)
+                if curnode.right:
+                    q.append(curnode.right)
+            
+            curdepth += 1
+            #print([node.val for node in q], curdepth-1)    
+        #print(q)
+        for node in q:
+            
+            if node.left:
+                temp = node.left
+                node.left = TreeNode(val=val, left=temp)
+                #node.left.left = temp
+            else:
+                node.left = TreeNode(val)
+            if node.right:
+                temp = node.right
+                node.right = TreeNode(val=val, right=temp)
+                #node.right.right = temp
+            else:
+                node.right = TreeNode(val)
         return root
