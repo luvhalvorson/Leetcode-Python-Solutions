@@ -1,14 +1,16 @@
 class Solution:
     def minimumLengthEncoding(self, words: List[str]) -> int:
-        '''for i in range(len(words)):
-            words[i] = words[i][::-1]'''
-        words = [word[::-1] for word in words]
-        words.sort(reverse=True)
-        print(words)
-        result = len(words[0]) + 1
-        print(result)
-        for i in range(1, len(words)):
-            if words[i-1][:len(words[i])] != words[i]:
-                result += (len(words[i]) + 1)
-                print(result)
-        return result
+        sl = sorted(words, key=lambda x: x[::-1])
+        #print(sl)
+        res = 0
+        for i in range(len(sl) - 1):
+            # if i+1 > len(sl)-1:
+            #     res += len(sl[i]) + 1
+            #     break
+            cur_word = sl[i]
+            if cur_word == sl[i+1][-len(cur_word):]:
+                continue
+            else:
+                res += len(sl[i]) + 1
+        res += len(sl[-1]) + 1 
+        return res
