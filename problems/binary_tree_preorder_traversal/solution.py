@@ -10,10 +10,14 @@ class Solution:
             return []
         res = []
         stack = [root]
+        
         while stack:
             cur = stack.pop()
             res.append(cur.val)
             if cur.right:
-                stack.append(cur.right) 
-            if cur.left:stack.append(cur.left)
+                stack.append(cur.right)
+            if cur.left:
+                stack.append(cur.left)
+       
+        
         return res
