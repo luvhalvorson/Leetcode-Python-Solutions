@@ -16,6 +16,7 @@ class Solution:
                 if cur:
                     if cur.left:
                         q.append(cur.left)
+                        # to specify that there is not None val in the queue
                         f = 1
                     else:
                         q.append(None)
@@ -24,20 +25,17 @@ class Solution:
                         f = 1
                     else:
                         q.append(None)
-            #print([n.val if n is not None else n for n in q])
+           
             if len(q) % 2:
                 return False
-                #print("this fasles")
             else:
-                
+                # check the current queue
                 for i in range(len(q) // 2):
                     if q[i] is None and q[-(i+1)] is None:
                         continue
                     elif q[i] is None or q[-(i+1)] is None:
-                        #print(q[i],q[-(i+1)])
                         return False
                     if q[i].val != q[-(i+1)].val:
-                        #print(q[i].val,q[-(i+1)].val)
                         return False
         
         return True
