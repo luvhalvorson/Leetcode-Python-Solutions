@@ -1,23 +1,16 @@
 class Solution:
     def isValid(self, s: str) -> bool:
-        st = []
+        if len(s) % 2 == 1:
+            return False
+        left = {'(':')', '[':']', '{':'}'}
+        
+        stack = []
         for c in s:
-            if c in "{[(":
-                st.append(c)
+            if c in left:
+                stack.append(c)
             else:
-                
-                if st:
-                    b = st.pop()
-                else:
+                if not stack:
                     return False
-               
-                
-
-                if c is "}" and b is not "{":
+                elif left[stack.pop()] != c:
                     return False
-                if c is "]" and b is not "[":
-                    return False
-                if c is ")" and b is not "(":
-                    return False
-            
-        return True if not st else False
+        return len(stack)==0
