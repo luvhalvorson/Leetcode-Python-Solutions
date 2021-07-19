@@ -1,11 +1,10 @@
 import heapq
 class Solution:
     def maxProfit(self, prices: List[int]) -> int:
-        minprice = prices[0]
+        minpast = prices[0]
         maxprofit = 0
-        for p in prices:
-            if p < minprice:
-                minprice = p
-            maxprofit = max(maxprofit, p - minprice)
+        for price in prices[1:]:
+            
+            maxprofit = max(maxprofit, price - minpast)
+            minpast = min(minpast, price)
         return maxprofit
-        
