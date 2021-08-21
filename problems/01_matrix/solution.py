@@ -1,31 +1,19 @@
-import math
-class Solution:
+class Solution:  # 520 ms, faster than 96.50%
     def updateMatrix(self, mat: List[List[int]]) -> List[List[int]]:
-        
-        dp = [[math.inf] * (len(mat[0])) for _ in range(len(mat))]
-        
-        for r in range(len(mat)):
-            for c in range(len(mat[0])):
-                if mat[r][c] == 0:
-                    dp[r][c] = 0
-                else:             
-                    if r == 0 and c == 0:
-                        continue
-                    elif r == 0:
-                        dp[r][c] =   1 + dp[r][c-1]
-                    elif c == 0:
-                        dp[r][c] =  1 + dp[r-1][c]
-                    else:
-                        dp[r][c] =  1 + min(dp[r][c-1], dp[r-1][c])
-        #print(dp)  
-        for r in range(len(mat)-1, -1, -1):
-            for c in range(len(mat[0])-1, -1, -1):
-                if r == (len(mat)-1) and c == len(mat[0])-1:
-                    continue
-                elif r == (len(mat)-1):
-                    dp[r][c] =  min(dp[r][c], 1 + dp[r][c + 1])
-                elif c == len(mat[0])-1:
-                    dp[r][c] =  min(dp[r][c], 1 + dp[r + 1][c])
-                else:
-                    dp[r][c] = min(1+dp[r + 1][c], 1+dp[r][c + 1],dp[r][c])
-        return dp
+        m, n = len(mat), len(mat[0])
+
+        for r in range(m):
+            for c in range(n):
+                if mat[r][c] > 0:
+                    top = mat[r - 1][c] if r > 0 else math.inf
+                    left = mat[r][c - 1] if c > 0 else math.inf
+                    mat[r][c] = min(top, left) + 1
+
+        for r in range(m - 1, -1, -1):
+            for c in range(n - 1, -1, -1):
+                if mat[r][c] > 0:
+                    bottom = mat[r + 1][c] if r < m - 1 else math.inf
+                    right = mat[r][c + 1] if c < n - 1 else math.inf
+                    mat[r][c] = min(mat[r][c], bottom + 1, right + 1)
+
+        return mat
