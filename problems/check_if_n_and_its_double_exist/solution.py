@@ -1,10 +1,10 @@
 class Solution:
     def checkIfExist(self, arr: List[int]) -> bool:
-        seen = set()
-        arr.sort(key=lambda k:abs(k))
-        for i in arr:
-            if i in seen:
+        d = set()
+        for num in arr:
+            if 2 * num in d:
                 return True
-            else:
-                seen.add(2*i)
+            if num % 2 == 0 and num // 2 in d:
+                    return True
+            d.add(num)
         return False
