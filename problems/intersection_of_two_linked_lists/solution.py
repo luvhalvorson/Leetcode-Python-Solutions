@@ -6,17 +6,18 @@
 
 class Solution:
     def getIntersectionNode(self, headA: ListNode, headB: ListNode) -> ListNode:
-        #A com+B+A
-        #B+A+B
         p1 = headA
         p2 = headB
-        while p1 or p2:
-            if not p1:
-                p1 = headB
-            if not p2:
-                p2 = headA
-            if p1 is p2:
-                return p1
-            p1 = p1.next
-            p2 = p2.next
-        return None
+       
+        while p1 != p2:
+      
+
+            p1 = p1.next if p1 else headB
+            p2 = p2.next if p2 else headA
+            
+                
+
+                
+                
+
+        return p1
