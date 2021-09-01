@@ -1,18 +1,19 @@
 class Solution:
     def permute(self, nums: List[int]) -> List[List[int]]:
-        # 123   1   rec([23])   2  rec(3)   
-        # 132   1        23     3    2  
-        # 213    2
-        #
-        res = []
-        
-        def backtrack(numlist, path):
+        # why 20ms? 別人的solution
+        def BT(pos, tmp, ret):
+            if len(tmp) == len(nums):
+                ret.append(tmp.copy())
+                return 
             
-            if len(numlist) == 1:
-                res.append(path + numlist)
-                return
-            for i in range(len(numlist)):
-                backtrack(numlist[:i] + numlist[i+1:], path + [numlist[i]])
-        backtrack(nums, [])    
-        
-        return res
+            for i in range(pos, len(nums)):
+                nums[i], nums[pos] = nums[pos], nums[i]
+                tmp.append(nums[pos])
+                BT(pos+1, tmp, ret)
+                tmp.pop()
+                nums[i], nums[pos] = nums[pos], nums[i]
+    
+        ret = []
+        tmp = []
+        BT(0, tmp, ret)
+        return ret
