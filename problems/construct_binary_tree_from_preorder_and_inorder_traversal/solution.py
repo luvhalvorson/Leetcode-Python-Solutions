@@ -10,13 +10,13 @@ class Solution:
         # in: LrR
         if not preorder:
             return None
-        r = TreeNode(preorder[0])
-        ri = 0
-        for i in range(len(inorder)):
-            if inorder[i] == r.val:
-                ri = i
-                break
-        r.left = self.buildTree(preorder[1:1+ri], inorder[:ri])
-        r.right = self.buildTree(preorder[1+ri:], inorder[ri+1:])
+        i = 0
+        head = TreeNode(preorder[0])
+       
+        # while preorder[0] != inorder[i]:
+        #     i += 1
+        i = inorder.index(preorder[0])
+        head.left = self.buildTree(preorder[1: 1 + i], inorder[:i])
+        head.right = self.buildTree(preorder[1 +i:], inorder[i + 1:])
         
-        return r
+        return head
