@@ -18,7 +18,7 @@ class Solution:
         for i in stack[::-1]:
             if s_stack:
                 s_i = s_stack.pop()
-                if s_i <= i:
+                if s_i < i:
                     return False
             else:
                 return False
